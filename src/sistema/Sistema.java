@@ -1,52 +1,79 @@
 package sistema;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import service.HandleMenu;
 
 public class Sistema {
 
-	public static void main(String[] args) {
-		// Criar Scanner para capturar dados 
-		Scanner sc = new Scanner(System.in);
-		HandleMenu hm = new HandleMenu();
-		int opcao = 0;
-		do {
-			
-			System.out.print("1 - Criar \n2 - Editar \n3 - Deletar \n4 - Listar \n9 - Sair\n");
-			
-			opcao = sc.nextInt();
-			
-			switch (opcao) {
-			case 1: { 
-				hm.criar();
-				break;
-			}
-			case 2: {
-				hm.editar();
-				break;
-			}
-			case 3: {
-				hm.deletar();
-				break;
-			}
-			case 4: {
-				hm.listar();
-				break;
-			}
-			case 5: {
-				hm.listUnico();
-				break;
-			}
-			default:
-				System.out.println("Opção Invalida");
-				break;
-			}
-		
-		}
-		while (opcao != 9);
-		sc.close();
+    public static void main(String[] args) {
 
-	}
+        Scanner sc = new Scanner(System.in);
+        HandleMenu hm = new HandleMenu();
+        int opcao = 0;
+        do {
+            try {
+                System.out.print("\nMENU USUARIO\n\n1 - Criar Usuário\n2 - Editar Usuário\n3 - Deletar Usuário\n"
+                        + "4 - Listar Usuários\n---------------------\n\nMENU PRODUTO\n\n5 - Criar Produto\n6 - Editar Produto\n"
+                        + "7 - Deletar Produto\n8 - Listar Produtos\n---------------------\n9 - Sair\n---------------------\n");
 
+                opcao = sc.nextInt();
+
+                switch (opcao) {
+                    case 1: {
+                        hm.criarUsuario();
+                        break;
+                    }
+                    case 2: {
+                        hm.editarUsuario();
+                        break;
+                    }
+                    case 3: {
+                        hm.deletarUsuario();
+                        break;
+                    }
+                    case 4: {
+                        hm.listarUsuarios();
+                        break;
+                    }
+                    case 5: {
+                        hm.criarProduto();
+                        break;
+                    }
+                    case 6: {
+                        hm.editarProduto();
+                        break;
+                    }
+                    case 7: {
+                        hm.deletarProduto();
+                        break;
+                    }
+                    case 8: {
+                        hm.listarProdutos();
+                        break;
+                    }
+                    case 9: {
+                        System.out.println("Saindo do sistema...");
+                        break;
+                    }
+                    default:
+                    	System.err.println("----------------");
+                        System.err.println("Opção Inválida");
+                        System.err.println("----------------");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+            	
+            	
+                System.err.println("------------------------------------------------------------");
+                System.err.println("Por favor, digite um número correspondente à opção desejada.");
+                System.err.println("------------------------------------------------------------");
+                sc.nextLine();
+            }
+
+        } while (opcao != 9);
+        sc.close();
+
+    }
 }
