@@ -57,14 +57,23 @@ public class HandleMenu {
         String nome = sc.next();
         System.out.println("Digite o preço do produto:");
         double preco = sc.nextDouble();
+        if (preco <= 0) {
+            System.err.println("Preço inválido. O preço deve ser positivo.");
+            return;
+        }
         System.out.println("Digite a quantidade do produto:");
         int quantidade = sc.nextInt();
+        if (quantidade <= 0) {
+            System.err.println("Quantidade inválida. A quantidade deve ser positiva.");
+            return;
+        }
 
         int id = getNextProductId();
 
         Produto produto = new Produto(id, nome, preco, quantidade);
         gp.adicionarProduto(produto);
     }
+
 
 
     public void editarProduto() {
@@ -74,11 +83,20 @@ public class HandleMenu {
         String novoNome = sc.next();
         System.out.println("Digite o novo preço do produto:");
         double novoPreco = sc.nextDouble();
+        if (novoPreco <= 0) {
+            System.err.println("Preço inválido. O preço deve ser positivo.");
+            return;
+        }
         System.out.println("Digite a nova quantidade do produto:");
         int novaQuantidade = sc.nextInt();
+        if (novaQuantidade <= 0) {
+            System.err.println("Quantidade inválida. A quantidade deve ser positiva.");
+            return;
+        }
 
-        gp.editarProduto(id, novoNome, novoPreco, novaQuantidade); 
+        gp.editarProduto(id, novoNome, novoPreco, novaQuantidade);
     }
+
 
 
 
