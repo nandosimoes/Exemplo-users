@@ -107,4 +107,26 @@ public class HandleMenu {
         }
         return maxId + 1;
     }
+    
+    public double somarPrecosProdutos() {
+        return gp.somarPrecosProdutos();
+    }
+
+   
+    public int contarProdutos() {
+        return gp.contarProdutos();
+    }
+
+    
+    public void trocarSenhaUsuario() {
+        sc = new Scanner(System.in);
+        System.out.println("Digite o ID do usuário:");
+        int idUsuario = sc.nextInt();
+        System.out.println("Digite a senha antiga:");
+        String senhaAntiga = sc.next();
+        System.out.println("Digite a nova senha:");
+        String novaSenha = sc.next();
+        gs.trocarSenhaUsuario(idUsuario, senhaAntiga, novaSenha);
+    }
+    
 }

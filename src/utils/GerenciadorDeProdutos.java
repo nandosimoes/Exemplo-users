@@ -102,24 +102,37 @@ public class GerenciadorDeProdutos {
             System.err.println("ID inválido. O ID deve ser um número positivo.");
             System.err.println("------------------------------------");
         } else {
-            boolean encontrado = false;
-            for (Produto produto : produtos) {
-                if (produto.getId() == id) {
-                    produto.setNome(novoNome);
-                    produto.setPreco(novoPreco);
-                    encontrado = true;
-                    break;
-                }
+            boolean isNumericId = true;
+            try {
+                Integer.parseInt(String.valueOf(id));
+            } catch (NumberFormatException e) {
+                isNumericId = false;
             }
-            if (encontrado) {
-                reescreverArquivo(produtos);
-                System.out.println("------------------------------------");
-                System.out.println("Produto editado com sucesso!");
-                System.out.println("------------------------------------");
+
+            if (isNumericId) {
+                boolean encontrado = false;
+                for (Produto produto : produtos) {
+                    if (produto.getId() == id) {
+                        produto.setNome(novoNome);
+                        produto.setPreco(novoPreco);
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if (encontrado) {
+                    reescreverArquivo(produtos);
+                    System.out.println("------------------------------------");
+                    System.out.println("Produto editado com sucesso!");
+                    System.out.println("------------------------------------");
+                } else {
+                    System.out.println("------------------------------------");
+                    System.out.println("Produto não encontrado");
+                    System.out.println("------------------------------------");
+                }
             } else {
-                System.out.println("------------------------------------");
-                System.out.println("Produto não encontrado");
-                System.out.println("------------------------------------");
+                System.err.println("------------------------------------");
+                System.err.println("ID inválido. O ID deve ser um número.");
+                System.err.println("------------------------------------");
             }
         }
     }
@@ -153,4 +166,19 @@ public class GerenciadorDeProdutos {
             System.out.println("------------------------------------");
         }
     }
+
+    public double somarPrecosProdutos() {
+        double totalPrecos = 0;
+        List<Produto> produtos = lerProdutos();
+        for (Produto produto : produtos) {
+            totalPrecos += produto.getPreco();
+        }
+        return totalPrecos;
+    }
+
+    public int contarProdutos() {
+        List<Produto> produtos = lerProdutos();
+        return produtos.size();
+    }
+
 }
