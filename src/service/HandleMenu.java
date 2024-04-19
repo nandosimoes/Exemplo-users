@@ -13,6 +13,7 @@ public class HandleMenu {
     GerenciadorDeUsuarios gs = new GerenciadorDeUsuarios();
     GerenciadorDeProdutos gp = new GerenciadorDeProdutos();
 
+
     public HandleMenu() {
         gs.verificaECria("usuarios.txt");
         gp.verificaECria("produtos.txt");
@@ -56,12 +57,15 @@ public class HandleMenu {
         String nome = sc.next();
         System.out.println("Digite o preço do produto:");
         double preco = sc.nextDouble();
+        System.out.println("Digite a quantidade do produto:");
+        int quantidade = sc.nextInt();
 
         int id = getNextProductId();
 
-        Produto produto = new Produto(id, nome, preco);
+        Produto produto = new Produto(id, nome, preco, quantidade);
         gp.adicionarProduto(produto);
     }
+
 
     public void editarProduto() {
         System.out.println("Digite o ID do produto:");
@@ -70,9 +74,13 @@ public class HandleMenu {
         String novoNome = sc.next();
         System.out.println("Digite o novo preço do produto:");
         double novoPreco = sc.nextDouble();
+        System.out.println("Digite a nova quantidade do produto:");
+        int novaQuantidade = sc.nextInt();
 
-        gp.editarProduto(id, novoNome, novoPreco);
+        gp.editarProduto(id, novoNome, novoPreco, novaQuantidade); 
     }
+
+
 
     public void deletarProduto() {
         System.out.println("Digite o ID do produto a ser deletado:");

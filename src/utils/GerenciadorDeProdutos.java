@@ -40,7 +40,6 @@ public class GerenciadorDeProdutos {
         }
     }
 
-
     public void adicionarProduto(Produto produto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(NOME_ARQUIVO, true))) {
             bw.write(produto.toString());
@@ -61,7 +60,7 @@ public class GerenciadorDeProdutos {
             String linha;
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(";");
-                produtos.add(new Produto(Integer.parseInt(partes[0]), partes[1], Double.parseDouble(partes[2])));
+                produtos.add(new Produto(Integer.parseInt(partes[0]), partes[1], Double.parseDouble(partes[2]), Integer.parseInt(partes[3])));
             }
         } catch (IOException e) {
             System.out.println("------------------------------------");
@@ -74,6 +73,10 @@ public class GerenciadorDeProdutos {
         }
         return produtos;
     }
+
+
+
+
 
     public void deletarProduto(int id) {
         List<Produto> produtos = lerProdutos();
@@ -95,7 +98,7 @@ public class GerenciadorDeProdutos {
         }
     }
 
-    public void editarProduto(int id, String novoNome, double novoPreco) {
+    public void editarProduto(int id, String novoNome, double novoPreco, int novaQuantidade) {
         List<Produto> produtos = lerProdutos();
         if (id <= 0) {
             System.err.println("------------------------------------");
@@ -115,6 +118,7 @@ public class GerenciadorDeProdutos {
                     if (produto.getId() == id) {
                         produto.setNome(novoNome);
                         produto.setPreco(novoPreco);
+                        produto.setQuantidade(novaQuantidade);
                         encontrado = true;
                         break;
                     }
@@ -138,6 +142,7 @@ public class GerenciadorDeProdutos {
     }
 
 
+
     public void listarProdutos() {
         List<Produto> produtos = lerProdutos();
         if (produtos.isEmpty()) {
@@ -148,7 +153,7 @@ public class GerenciadorDeProdutos {
             System.out.println("------------------------------------");
             System.out.println("Lista de produtos:");
             for (Produto produto : produtos) {
-                System.out.println("ID: " + produto.getId() + ", Nome: " + produto.getNome() + ", Preço: " + produto.getPreco());
+                System.out.println("ID: " + produto.getId() + ", Nome: " + produto.getNome() + ", Preço: " + produto.getPreco() + ", Quantidade: " + produto.getQuantidade());
                 System.out.println("------------------------------------");
             }
         }
@@ -171,14 +176,19 @@ public class GerenciadorDeProdutos {
         double totalPrecos = 0;
         List<Produto> produtos = lerProdutos();
         for (Produto produto : produtos) {
-            totalPrecos += produto.getPreco();
+            totalPrecos += produto.getPreco() * produto.getQuantidade();
         }
         return totalPrecos;
     }
 
+    
     public int contarProdutos() {
         List<Produto> produtos = lerProdutos();
-        return produtos.size();
+        int totalProdutos = 0;
+        for (Produto produto : produtos) {
+            totalProdutos += produto.getQuantidade();
+        }
+        return totalProdutos;
     }
 
 }
